@@ -100,28 +100,20 @@ public class Game
         System.out.println();
         printLocationInfo();
     }
+    
     /**
      * Print the current location information.
      */
     private void printLocationInfo()
     {
-       System.out.println("You are " + currentRoom.getExit(direction));
+       System.out.println("You are " + currentRoom.getDescription());
         System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
+        if(currentRoom.getExitString() != null) {
+            System.out.print(currentRoom.getExitString());
         }
         System.out.println();
-    
     }
+    
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.

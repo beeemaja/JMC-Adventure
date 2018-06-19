@@ -18,9 +18,6 @@ public class Room
 {
     private String description;
     //private Room northExit;
-    //private Room southExit;
-    //private Room eastExit;
-    //private Room westExit;
     private HashMap <String, Room> exits;
     /**
      * Create a room described "description". Initially, it has
@@ -77,24 +74,25 @@ public class Room
     }
     
     /**
-     * Return a description of the room's exits, 
+     * Return a description of the room's exits available, 
      * for example, "Exits: north west".
      * @return A description of the available exits.
      */
-    public String getExitsString(){
-    String exists = "Exits: ";
-    if(northExit != null) {
-            exits += "north";
+    public String getExitString(){
+    String availableExits = "Exits: ";
+    if(exits != null) {
+            availableExits += "north";
         }
-    if(eastExit != null) {
-            exits += "east";
+    if(exits != null) {
+            availableExits += "east";
         }
-    if(southExit != null) {
-          exits += "south";
+    if(exits != null) {
+         availableExits += "south";
         }
-    if(westExit != null) {
-            exits += "west";
+    if(exits != null) {
+            availableExits += "west";
         }
+        return availableExits;
    }
     
    
