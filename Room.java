@@ -78,7 +78,7 @@ public class Room
     String availableExits = "Exits: ";
     Set<String> keys = exits.keySet();
     for(String exit: keys){
-    availableExits += exit;
+    availableExits += " "+ exit;
     }
         return availableExits;
    }

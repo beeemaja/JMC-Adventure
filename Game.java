@@ -165,7 +165,8 @@ public class Game
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            return "Go where?";
+            System.out.println("Go where?");
+            
         }
 
         String direction = command.getSecondWord();

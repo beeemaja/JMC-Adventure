@@ -45,7 +45,7 @@ public class CommandWords
     public String getCommandList(){
         String commandList = "";
         for(String command : validCommands){
-        commandList = command + " ";
+        commandList += command + " ";
         }
         return commandList;
     }
