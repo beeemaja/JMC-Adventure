@@ -123,33 +123,38 @@ public class Game
     {
         boolean wantToQuit = false;
         
-        if(command.isUnknown()) {
-            System.out.println("I don't know what you mean...");  
-            return false;
-        }
+        CommandWord commandWord = command.getCommandWord();
+        switch(commandWord){
+        case UNKNOWN:
+            System.out.println("I don't know what you mean..."); 
+            break;
         
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
+        case HELP:
             printHelp();
-        }
-        else if (commandWord.equals("go")) {
+            break;
+        
+        case GO:
             goRoom(command);
-        }
-        else if (commandWord.equals("look")){
+            break;
+        
+        case LOOK:
             look();
-        }
-        else if (commandWord.equals("eat")){
+            break;
+        
+        case EAT:
             eat();
-        }
-        else if (commandWord.equals("quit")) {
+            break;
+        
+        case QUIT:
             wantToQuit = quit(command);
-        } 
-        return wantToQuit;
+            break;
+        
     }
+    return wantToQuit;
+ }
 
     // implementations of user commands:
-
-    /**
+ /**
      * Print out some help information.
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
@@ -162,7 +167,7 @@ public class Game
         +"\n"
         +"\n"
         +"Your command words are:");
-        System.out.println(parser.getCommandList());
+        parser.showCommandList();
     }
 
     /** 
@@ -227,4 +232,5 @@ public class Game
     private void eat(){
     System.out.println("You have eaten now and you are not hungry any more.");
     }
+    
 }

@@ -12,6 +12,6 @@ comment3.target=java.lang.String\ readLine()
 comment4.params=inputLine
 comment4.target=Command\ getCommand(java.lang.String)
 comment5.params=
-comment5.target=java.lang.String\ getCommandList()
+comment5.target=void\ showCommandList()
 comment5.text=\r\n\ Show\ a\ list\ of\ valid\ command\ words.\r\n
 numComments=6
