@@ -34,30 +34,31 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
-
+        Room outside, theater, pub, lab, office, cellar;
         // create the rooms
         outside = new Room("outside the main entrance of the university");
         theater = new Room("in a lecture theater");
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
-
+        cellar = new Room ("in the cellar");
         // initialise room exits
         //outside.setExits(null, theater, lab, pub);//n e s w
-        outside.setExits("east", theater);
-        outside.setExits("south", lab);
-        outside.setExits("west", pub);
+        outside.setExit("east", theater);
+        outside.setExit("south", lab);
+        outside.setExit("west", pub);
         //theater.setExits(null, null, null, outside);
-        theater.setExits("west", outside);
+        theater.setExit("west", outside);
         //pub.setExits(null, outside, null, null);
-        pub.setExits("east", outside);
+        pub.setExit("east", outside);
         //lab.setExits(outside, office, null, null);
-        lab.setExits("north",outside);
-        lab.setExits("east", office);
+        lab.setExit("north",outside);
+        lab.setExit("east", office);
         //office.setExits(null, null, null, lab);
-        office.setExits("west", lab);
-
+        office.setExit("west", lab);
+        office.setExit("down", cellar); //set the down/up direction
+        cellar.setExit("up", office);
+        
         currentRoom = outside;  // start game outside
     }
 
@@ -74,12 +75,8 @@ public class Game
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
-            String output = processCommand(command);
-            finished = (null == output);
-            if (!finished)
-            {
-                System.out.println(output);
-            }
+            finished = processCommand(command);
+            
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
@@ -91,10 +88,10 @@ public class Game
      * @param commandLine - the line entered as String
      * @return output of the command
      */
-    public String processCommand(String commandLine){
-        Command command = parser.getCommand(commandLine);
-        return processCommand(command);
-    }
+    //public String processCommand(String commandLine){
+      // Command command = parser.getCommand(commandLine);
+      // return processCommand(command);
+   //}
 
     /**
      * Print out the opening message for the player.
@@ -106,20 +103,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        printLocationInfo();
-    }
-    
-    /**
-     * Print the current location information.
-     */
-    private void printLocationInfo()
-    {
-       System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.getExitString() != null) {
-            System.out.print(currentRoom.getExitString());
-        }
-        System.out.println();
+        System.out.println(currentRoom.getLongDescription());
     }
     
     /**
@@ -127,26 +111,32 @@ public class Game
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private String processCommand(Command command) 
+    private boolean processCommand(Command command) 
     {
         boolean wantToQuit = false;
-
+        
         if(command.isUnknown()) {
-            return "I don't know what you mean...";       
+            System.out.println("I don't know what you mean...");  
+            return false;
         }
-        String result = null;
+        
         String commandWord = command.getCommandWord();
         if (commandWord.equals("help")) {
-            result = printHelp();
+            printHelp();
         }
         else if (commandWord.equals("go")) {
-            result = goRoom(command);
+            goRoom(command);
+        }
+        else if (commandWord.equals("look")){
+            look();
+        }
+        else if (commandWord.equals("eat")){
+            eat();
         }
         else if (commandWord.equals("quit")) {
-            result = quit(command);
-        }
-
-        return result ;
+            wantToQuit = quit(command);
+        } 
+        return wantToQuit;
     }
 
     // implementations of user commands:
@@ -156,17 +146,15 @@ public class Game
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
      */
-    private String printHelp() 
+    private void printHelp() 
     {
-        return "You are lost. You are alone. You wander"
+        System.out.println ( "You are lost. You are alone. You wander"
         +"\n"
         + "around at the university."
         +"\n"
         +"\n"
-        +"Your command words are:"
-        +"\n"
-        +"   go quit help"
-        +"\n";
+        +"Your command words are:");
+        System.out.println(parser.getCommandList());
     }
 
     /** 
@@ -183,20 +171,8 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        //Room nextRoom = null;
         Room nextRoom = currentRoom.getExit(direction);
-        //if(direction.equals("north")) {
-          //  nextRoom = currentRoom.getExit("north");//before: currentRoom.northExit;
-       // }
-       // if(direction.equals("east")) {
-        //    nextRoom = currentRoom.getExit("east");
-       //  }
-       //  if(direction.equals("south")) {
-       //      nextRoom = currentRoom.getExit("south");
-       //  }
-       //  if(direction.equals("west")) {
-       //      nextRoom = currentRoom.getExit("west");
-       //  }
+        
         String result = "";
         if (nextRoom == null) {
             result += "There is no door!";
@@ -207,19 +183,39 @@ public class Game
         }
         return result + "\n";
     }
+    
+    /**
+     * Print the current location information.
+     */
+    private void printLocationInfo()
+    {
+        System.out.println(currentRoom.getLongDescription());
+    }
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
      * @return true, if this command quits the game, false otherwise.
      */
-    private String quit(Command command) 
+    private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            return "Quit what?";
+            System.out.println ("Quit what?");
+            return false;
         }
         else {
-            return null;  // signal that we want to quit
+            return true;  // signal that we want to quit
         }
+    }
+    
+    /**
+     * Print the description of the room and available exits.
+     */
+    private void look(){
+        System.out.println(currentRoom.getLongDescription());
+    }
+    
+    private void eat(){
+    System.out.println("You have eaten now and you are not hungry any more.");
     }
 }

@@ -1,5 +1,6 @@
 
 import java.util.HashMap;
+import java.util.Set;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -36,11 +37,11 @@ public class Room
      * to another room or is null (no exit there).
      * 
      */
-    public void setExits(String direction, Room neighbor)
+    public void setExit(String direction, Room neighbor)
     //(Room north, Room east, Room south, Room west) 
     {
         exits.put(direction, neighbor); //HashMap of direction 
-        //that is associa. witha roo,
+        //that is associa. with a room,
     }
 
     /**
@@ -51,7 +52,14 @@ public class Room
         return description;
     }
     /**
-     * Return the room that is reached if we go fro this room in diretion "direction".
+     * @return The long description
+     */
+    public String getLongDescription(){
+    return "You are " + description + ".\n" + getExitString();
+    }
+    
+    /**
+     * Return the room that is reached if we go from this room in diretion "direction".
      * If there is no room in that direction, return null.
      * @param direction The exit's direction.
      * @return The room in the given direction.
@@ -68,18 +76,10 @@ public class Room
      */
     public String getExitString(){
     String availableExits = "Exits: ";
-    if(exits != null) {
-            availableExits += "north";
-        }
-    if(exits != null) {
-            availableExits += "east";
-        }
-    if(exits != null) {
-         availableExits += "south";
-        }
-    if(exits != null) {
-            availableExits += "west";
-        }
+    Set<String> keys = exits.keySet();
+    for(String exit: keys){
+    availableExits += exit;
+    }
         return availableExits;
    }
     }

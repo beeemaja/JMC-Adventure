@@ -67,4 +67,12 @@ public class Parser
             return new Command(null, word2); 
         }
     }
+    
+    /**
+     * Show a list of valid command words.
+     */
+    public String getCommandList(){
+        return commands.getCommandList();
+    }
+    
 }
