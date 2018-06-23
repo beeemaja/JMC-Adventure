@@ -15,10 +15,11 @@
  * @version 2016.02.29
  */
 
-public class Game 
+public class Game  
 {
     private Parser parser;
     private Room currentRoom;
+    private Item item;
 
     /**
      * Create the game and initialise its internal map.
@@ -47,17 +48,26 @@ public class Game
         outside.setExit("east", theater);
         outside.setExit("south", lab);
         outside.setExit("west", pub);
-        //theater.setExits(null, null, null, outside);
+       
         theater.setExit("west", outside);
-        //pub.setExits(null, outside, null, null);
+        
         pub.setExit("east", outside);
-        //lab.setExits(outside, office, null, null);
+        pub.addItem("Dragon", "the enemy", 300);
+        
         lab.setExit("north",outside);
         lab.setExit("east", office);
-        //office.setExits(null, null, null, lab);
+        lab.addItem("Sword", "will help you to fight the dragon", 10);
+        
         office.setExit("west", lab);
         office.setExit("down", cellar); //set the down/up direction
+        
         cellar.setExit("up", office);
+        lab.addItem("magic cookie", "boost your energy", 5);
+        
+        
+        
+        //add some items to the rooms
+        
         
         currentRoom = outside;  // start game outside
     }
@@ -88,9 +98,7 @@ public class Game
      * @param commandLine - the line entered as String
      * @return output of the command
      */
-    //public String processCommand(String commandLine){
-      // Command command = parser.getCommand(commandLine);
-      // return processCommand(command);
+   
    //}
 
     /**

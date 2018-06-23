@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 /**
@@ -18,7 +18,8 @@ import java.util.Set;
 public class Room 
 {
     private String description;
-    //private Room northExit;
+    private HashMap<String, Item> items;
+    private String item;
     private HashMap <String, Room> exits;
     /**
      * Create a room described "description". Initially, it has
@@ -30,9 +31,10 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<>();
+        items = new HashMap<>();
     }
 
-    /**
+   /**
      * Define the exits of this room.  Every direction either leads
      * to another room or is null (no exit there).
      * 
@@ -43,22 +45,8 @@ public class Room
         exits.put(direction, neighbor); //HashMap of direction 
         //that is associa. with a room,
     }
-
-    /**
-     * @return The description of the room.
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-    /**
-     * @return The long description
-     */
-    public String getLongDescription(){
-    return "You are " + description + ".\n" + getExitString();
-    }
     
-    /**
+   /**
      * Return the room that is reached if we go from this room in diretion "direction".
      * If there is no room in that direction, return null.
      * @param direction The exit's direction.
@@ -82,4 +70,68 @@ public class Room
     }
         return availableExits;
    }
+   
+   /**
+     * @return The description of the room.
+     */
+    public String getDescription()
+    {
+        return description;
     }
+    
+    /**
+     * @return The long description
+     */
+    public String getLongDescription(){
+    return "You are " + description + ".\n" + getExitString();
+    }
+    
+    /**
+     * Add item to the room created.
+     * 
+     */
+    public void addItem(String name, String description, int weight){
+    items.put(name, new Item(name, description, weight));
+    }
+    
+    /**
+     * Add item to the room created.
+     * 
+     */
+    public void addItem(Item item){
+    items.put(item.getName(), item);
+    }
+    
+   /**
+    * Remove item from the room
+    * @param item The name of item to be removed
+    */
+   public void removeItem(String item){
+    items.remove(item);
+    }
+    
+     /**
+     * Return the information about the items in the room.
+     */
+    public Item getItem(String itemName){
+    return items.get(itemName);
+    }
+    
+    /**
+     * Return information about the items in the room.
+     */
+    public String getItemString(){
+    String itemString = "Items: ";
+    if (!items.isEmpty()){
+    Set<String> itemNames = items.keySet();
+    for(String itemName: itemNames){
+        itemString += getItem(itemName).itemDescriptionLong();
+    }
+    return itemString;
+    }
+    else {
+    return itemString + " None.";
+   
+    }
+    }
+}
