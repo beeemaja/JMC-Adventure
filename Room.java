@@ -141,7 +141,7 @@ public class Room
 	 * @param item The item to check
 	 * @return true if the player is allowed, false if not
 	 */
-	public boolean isItemCouldPick(Item item)
+	public boolean isItemCouldPicked(Item item)
 	{
 		return item.pickUp();
 	}

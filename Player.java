@@ -70,7 +70,15 @@ public class Player
     public Item getItem(String item){
      return itemsYouHeld.get(item);
     }
-    
+/**
+	 * Check if an item exits in the players inventory or not
+	 * @param itemName The item that should be looked for
+	 * @return True if the item exits, false if not
+	 */
+	public boolean isInBag(String itemName)
+	{
+		return itemsYouHeld.containsKey(itemName);
+	}
 /**
 * Return the string about the items that are stored in your bag.
 */
@@ -103,6 +111,7 @@ public class Player
     }
     return totalWeight;
 }
+
 /**
 * Calculates if the player can carry a given item or not
 * @param item The item to be evaluated
@@ -126,9 +135,9 @@ return currentRoom;
 	 * Moves the player to another room
 	 * @param nextRoom The room to player should be moved to
 	 */
-	public void movePlayer(Room nextRoom) {   
-		
-		currentRoom = nextRoom;
+public void movePlayer(Room nextRoom) {   
+
+	currentRoom = nextRoom;
 		
 }
 }
