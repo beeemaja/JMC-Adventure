@@ -18,9 +18,10 @@ import java.util.Set;
 public class Room 
 {
     private String description;
-    private HashMap<String, Item> items;
     private String item;
+    private HashMap<String, Item> items;
     private HashMap <String, Room> exits;
+   
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -90,13 +91,14 @@ public class Room
      * Add item to the room created.
      * 
      */
-    public void addItem(String name, String description, int weight){
+    public void addItem(String name, String description, 
+    int weight)
+    {
     items.put(name, new Item(name, description, weight));
     }
     
     /**
-     * Add item to the room created.
-     * 
+     * Add item to the room.
      */
     public void addItem(Item item){
     items.put(item.getName(), item);
@@ -131,7 +133,18 @@ public class Room
     }
     else {
     return itemString + " None.";
-   
     }
     }
+    
+    /**
+	 * Checks if the player is allowed to loot a certaint item
+	 * @param item The item to check
+	 * @return true if the player is allowed, false if not
+	 */
+	public boolean isItemCouldPick(Item item)
+	{
+		return item.pickUp();
+	}
+
+
 }
