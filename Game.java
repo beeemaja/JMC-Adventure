@@ -56,22 +56,27 @@ public class Game
         boss.addItem("Dragon", "'s sleeping now." + "\n" + 
         "Use your sword to defeat him", 200);
         boss.getItem("Dragon").setEatable(false);
+        boss.getItem("Dragon").setPickUpAbility(false);
         
         amunition.setExit("south", outside);
         amunition.setExit("west", secretRoom);
         amunition.addItem("Sword", "helps to defeat dragons", 25);
-        boss.getItem("Sword").setEatable(false);
+        amunition.getItem("Sword").setEatable(false);
+        amunition.getItem("Sword").setPickUpAbility(true);
         
         secretRoom.setExit("east",amunition);        
         secretRoom.addItem("password", "the key to the goal room", 25);
+        secretRoom.getItem("password").setPickUpAbility(true);
         
         goal.setExit("south", boss);
         goal.addItem("Holy grail", "You'll save your beloved one", 25);
-        boss.getItem("Holy grail").setEatable(true);
+        goal.getItem("Holy grail").setEatable(true);
+        goal.getItem("Holy grail").setPickUpAbility(true);
         
         rest.setExit("west", outside);
         rest.addItem("magic cookie", "boost your energy", 25);
-        boss.getItem("magic cookie").setEatable(true);
+        rest.getItem("magic cookie").setEatable(true);
+        rest.getItem("magic cookie").setPickUpAbility(true);
    
        player = new Player(outside);  // start game outside
     }
