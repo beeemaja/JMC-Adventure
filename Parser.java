@@ -64,8 +64,8 @@ public class Parser
     /**
      * Show a list of valid command words.
      */
-     public void showCommandList(){
-        commands.getCommandList();
+     public String showCommandList(){
+        return commands.getCommandList();
     }
     
 }

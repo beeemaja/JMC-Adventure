@@ -70,12 +70,13 @@ public class Game
         goal.getItem("Holy grail").setPickUpAbility(true);
         
         rest.setExit("west", outside);
-        rest.addItem(" cookie ", " boost your energy", 25);
-        rest.addItem("energy drink ", " drink me! ", 25);
-        rest.getItem(" cookie ").setEatable(true);
-        rest.getItem("energy drink ").setEatable(true);
-        rest.getItem(" cookie ").setPickUpAbility(true);
-        rest.getItem("energy drink ").setPickUpAbility(true);
+        rest.addItem("Cookie", " boost your energy", 25);
+        rest.getItem("Cookie").setEatable(true);
+        rest.getItem("Cookie").setPickUpAbility(true);
+        
+        rest.addItem("Drink", " drink me! ", 25);
+        rest.getItem("Drink").setEatable(true);
+        rest.getItem("Drink").setPickUpAbility(true);
         
        // the location of player
        player = new Player(outside);  // start game outside
@@ -173,8 +174,8 @@ public class Game
         + "around at the temple."
         +"\n"
         +"\n"
-        +"Your command words are:");
-        parser.showCommandList();
+        +"Your command words are: "
+        + parser.showCommandList() );
     }
 
  /** 

@@ -66,7 +66,7 @@ public class Room
     String availableExits = "Exits: ";
     Set<String> keys = exits.keySet();
     for(String exit: keys){
-    availableExits += " "+ exit;
+    availableExits += " " + exit;
     }
         return availableExits;
    }
@@ -112,15 +112,15 @@ public class Room
     }
     
     /**
-     * @return The long description
+     * @return The long description of the room.
      */
     public String getLongDescription(){
      String longDescrip;
      
-     longDescrip = "You are " + description + " .";
+     longDescrip = "You are " + description + ".";
     
      longDescrip += getItemString();
-     longDescrip += "\n" +getExitString();
+     longDescrip += "\n" + getExitString();
      return longDescrip;
     }
     
@@ -128,16 +128,18 @@ public class Room
      * Return information about the items in the room.
      */
     public String getItemString(){
-    String itemString = " Items: ";
+    String itemString = "\nItems: ";
     if (!items.isEmpty()){
+        
     Set<String> itemNames = items.keySet();
-    for(String itemName: itemNames){
-        itemString += getItem(itemName).itemDescriptionLong();
+    for(String itemName : itemNames){
+        itemString +="\n " + getItem(itemName).itemDescriptionLong();
     }
     return itemString;
     }
-    else {
-    return itemString + " None.";
+    else 
+    {
+    return itemString + " \nNone.";
     }
     }
     
