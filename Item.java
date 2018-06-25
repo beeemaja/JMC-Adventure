@@ -50,6 +50,14 @@ public class Item
     return description;
     }
     
+     /**
+     * Returns if the player is able to eat this item or not
+     * @return True if eatable, false if not
+     */
+    public boolean isEatable() {
+        return eatable;
+    }
+    
     /**
      * Return the name.
      */
@@ -72,18 +80,9 @@ public class Item
     }
     
     /**
-     * Returns if the player is able to eat this item or not
-     * @return True if eatable, false if not
-     */
-    public boolean isEatable() {
-        return eatable;
-    }
-    
-    /**
      * Return the full description of an item.
      */
     public String itemDescriptionLong(){
     return name + " - " + description + "Weight: " + weight;
     }
-    
 }

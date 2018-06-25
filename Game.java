@@ -19,9 +19,7 @@ public class Game
 {
     private Parser parser;
     private Player player;
-    private Item item;
-
-    /**
+/**
      * Create the game and initialise its internal map.
      */
     public Game() 
@@ -30,30 +28,28 @@ public class Game
         parser = new Parser();
     }
 
-    /**
+/**
      * Create all the rooms and link their exits together.
      */
     private void createRooms()
     {
         Room outside, boss, amunition, secretRoom, rest, goal;
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
+        outside = new Room("outside the main entrance of the temple");
         boss = new Room("in a boss room. Look out! There's monster sleeping");
         amunition = new Room("in the amunition room. Find a sword!");
-        secretRoom = new Room("in a secretRoom. Find a passsword!");
+        secretRoom = new Room("in a secretRoom. Find a password!");
         rest = new Room("in the rest room.");
         goal = new Room("in the goal room. Here's your holy grail");
-        //office = new Room("in the computing admin office");
-        //cellar = new Room ("in the cellar");
-        // initialise room exits
-        //outside.setExits(null, theater, lab, pub);//n e s w
+        
+        //set the neighbouring rooms
         outside.setExit("east", rest);
         outside.setExit("north", boss);
         outside.setExit("west", amunition);
        
         boss.setExit("north", goal);
         boss.setExit("south", outside);
-        boss.addItem("Dragon", "'s sleeping now." + "\n" + 
+        boss.addItem("Dragon", "is going to crash you on the way to goal!" + "\n" + 
         "Use your sword to defeat him", 200);
         boss.getItem("Dragon").setEatable(false);
         boss.getItem("Dragon").setPickUpAbility(false);
@@ -74,10 +70,14 @@ public class Game
         goal.getItem("Holy grail").setPickUpAbility(true);
         
         rest.setExit("west", outside);
-        rest.addItem("magic cookie", "boost your energy", 25);
-        rest.getItem("magic cookie").setEatable(true);
-        rest.getItem("magic cookie").setPickUpAbility(true);
-   
+        rest.addItem(" cookie ", " boost your energy", 25);
+        rest.addItem("energy drink ", " drink me! ", 25);
+        rest.getItem(" cookie ").setEatable(true);
+        rest.getItem("energy drink ").setEatable(true);
+        rest.getItem(" cookie ").setPickUpAbility(true);
+        rest.getItem("energy drink ").setPickUpAbility(true);
+        
+       // the location of player
        player = new Player(outside);  // start game outside
     }
 
@@ -108,7 +108,7 @@ public class Game
         System.out.println();
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.");
+        System.out.println("Type" + CommandWord.HELP+ " if you need help.");
         System.out.println();
         System.out.println(player.getCurrentRoom().getLongDescription());
     }
@@ -121,8 +121,9 @@ public class Game
     private boolean processCommand(Command command) 
     {
         boolean wantToQuit = false;
-        
         CommandWord commandWord = command.getCommandWord();
+      
+    // implementations of user commands:  
         switch(commandWord){
         case UNKNOWN:
             System.out.println("I don't know what you mean..."); 
@@ -141,15 +142,15 @@ public class Game
             break;
         
         case EAT:
-            eat();
+            eat(command);
             break;
             
         case TAKE:
-             take();
+             take(command);
              break;
              
         case DROP:
-             drop();
+             drop(command);
              break;
         
         case QUIT:
@@ -160,7 +161,6 @@ public class Game
     return wantToQuit;
  }
 
-    // implementations of user commands:
  /**
      * Print out some help information.
      * Here we print some stupid, cryptic message and a list of the 
@@ -170,7 +170,7 @@ public class Game
     {
         System.out.println ( "You are lost. You are alone. You wander"
         +"\n"
-        + "around at the university."
+        + "around at the temple."
         +"\n"
         +"\n"
         +"Your command words are:");
@@ -181,14 +181,13 @@ public class Game
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
      */
-    private String goRoom(Command command) 
+    private void goRoom(Command command) 
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Go where?");
-            
+            return;
         }
-
         String direction = command.getSecondWord();
 
         // Try to leave current room.
@@ -196,92 +195,91 @@ public class Game
         
         String result = "";
         if (nextRoom == null) {
-            result += "There is no door!";
+            System.out.println("There is no door!");
         }
         else {
             player.movePlayer(nextRoom);
             printLocationInfo();    
         }
-        return result + "\n";
+        System.out.println(player.getCurrentRoom().getLongDescription());
+        
     }
+    
   /**
    * Let the player eat the item if it is eatable.
    */  
  private void eat(Command command) {
     //Checks if there is a second word or not!
    if(!command.hasSecondWord()) {
-	System.out.println("Eat what?");
-	return;
-		}
-		String item = command.getSecondWord();
-		//Check if the player has this item
+    System.out.println("Eat what?");
+    return;
+        }
+        String item = command.getSecondWord();
+        //Check if the player has this item
    if (!player.isInBag(item)) {
-	System.out.println("You don?t have this item!");
-	return;
-		}
+    System.out.println("You don't have this item!");
+    return;
+        }
    //Check if the player is allowed to eat this item
   if (!player.getItem(item).isEatable()){
-	System.out.println("You cant eat this item!");
-	return;
-		}
-  if (player.getItem(item).equals("cookie"))
-			{
-	
-	System.out.println("You eat a magic cookie and feel much stronger!");
-
-	return;
-			}
+    System.out.println("You cant eat this item!");
+    return;
+        }
+        System.out.println("You eat a magic cookie and feel much stronger!");
     }
+    
 /**
  * Take the item in the current room.
  */
   private void take(Command command){
 if(!command.hasSecondWord()) {
-			System.out.println("Take what?");
-			return;
-		}
+    System.out.println("Take what?");
+            return;
+        }
  String item = command.getSecondWord();
+ 
  Room currentRoom = player.getCurrentRoom();
  Item itemToBePicked = currentRoom.getItem(item);
-		//Check if the item exists
+        //Check if the item exists in the current room
 if (itemToBePicked==null) {
-	System.out.println("This item doesn?t exist in this room");
-			return;
-		}
-		//Check if items is allowd to be looted
+    System.out.println("This item doesn't exist in this room");
+            return;
+        }
+        //Check if items is allowd to be looted
 if (!currentRoom.isItemCouldPicked(itemToBePicked)) {
-	System.out.println("You are not allowed to take this item");
-			return;
-		}
+    System.out.println("You are not allowed to take this item");
+            return;
+        }
 if (!player.isAbleToCarry(currentRoom.getItem(item)))
-		{
-	System.out.println("This item is to heavey for you to pick up!");
-			return;
-		}
+        {
+    System.out.println("This item is to heavey for you to pick up!");
+            return;
+        }
  player.addItemtoBag(itemToBePicked);
+ 
  System.out.println("You successfully took " + item);
 }
+
 /**
  * Drop the items if the bag is too heavy.
- */		
+ */     
 private void drop(Command command){
 if(!command.hasSecondWord()) {
-			System.out.println("Drop what?");
-			return;
-		} 
-		String item = command.getSecondWord();
-		Room currentRoom = player.getCurrentRoom();
-		//Check if the item exists
+    System.out.println("Drop what?");
+            return;
+        } 
+        String item = command.getSecondWord();
+        Room currentRoom = player.getCurrentRoom();
+                //Check if the item exists
 if (!player.isInBag(item)) {
-			System.out.println("You dont have this item!");
-			return;
-		}
-		currentRoom.addItem(player.getItem(item));
-		
-		System.out.println("You successfully dropped " + item);
-
-	}
-	
+    System.out.println("You dont have this item!");
+            return;
+        }
+        currentRoom.addItem(player.getItem(item));
+        
+        System.out.println("You successfully dropped " + item);
+    }
+    
 /**
      * Print the current location information.
      */
@@ -319,22 +317,16 @@ System.out.println(player.getDescriptionOfItems());
     private void look(){
         System.out.println(player.getCurrentRoom().getLongDescription());
     }
+  
+//private void eat(){
+   // System.out.println("You have eaten now and you are not hungry any more.");
+   // }
     
-/**
- * Print the result if you eat the cookie.
- */   
-private void eat(){
-    System.out.println("You have eaten now and you are not hungry any more.");
-    }
-    
-/**
- * If you are able to pick the item, print the result.
- */
-private void take(){
-    System.out.println("The item is taken");
-}
+//private void take(){
+  //  System.out.println("The item is taken");
+//}
 
-private void drop(){
-    System.out.println("The item is dropped");
-}
+//private void drop(){
+//    System.out.println("The item is dropped");
+//}
 }

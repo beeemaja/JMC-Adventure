@@ -8,8 +8,8 @@
 public enum CommandWord
 {
     //A value for each command word
-    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), LOOK("look"),
-    EAT("eat"),  TAKE("take"), DROP("drop");
+    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), 
+    LOOK("look"), EAT("eat"),  TAKE("take"), DROP("drop");
    
 
 // The command string.

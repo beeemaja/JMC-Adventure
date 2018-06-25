@@ -18,7 +18,6 @@ import java.util.Set;
 public class Room 
 {
     private String description;
-    private String item;
     private HashMap<String, Item> items;
     private HashMap <String, Room> exits;
    
@@ -73,21 +72,6 @@ public class Room
    }
    
    /**
-     * @return The description of the room.
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-    
-    /**
-     * @return The long description
-     */
-    public String getLongDescription(){
-    return "You are " + description + ".\n" + getExitString();
-    }
-    
-    /**
      * Add item to the room created.
      * 
      */
@@ -104,7 +88,7 @@ public class Room
     items.put(item.getName(), item);
     }
     
-   /**
+    /**
     * Remove item from the room
     * @param item The name of item to be removed
     */
@@ -119,11 +103,32 @@ public class Room
     return items.get(itemName);
     }
     
+   /**
+     * @return The description of the room.
+     */
+    public String getDescription()
+    {
+        return description;
+    }
+    
+    /**
+     * @return The long description
+     */
+    public String getLongDescription(){
+     String longDescrip;
+     
+     longDescrip = "You are " + description + " .";
+    
+     longDescrip += getItemString();
+     longDescrip += "\n" +getExitString();
+     return longDescrip;
+    }
+    
     /**
      * Return information about the items in the room.
      */
     public String getItemString(){
-    String itemString = "Items: ";
+    String itemString = " Items: ";
     if (!items.isEmpty()){
     Set<String> itemNames = items.keySet();
     for(String itemName: itemNames){
