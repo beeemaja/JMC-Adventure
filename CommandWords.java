@@ -39,14 +39,14 @@ public class CommandWords
      */
     public CommandWord getCommandWord(String commandWord)
     {
-        CommandWord command = validCommands.get(commandWord);
-        if(command != null) {
+        for(CommandWord command : CommandWord.values())
+        {
+        if(command.toString().toLowerCase().equals(commandWord)) 
             return command;
         }
-        else {
-            return CommandWord.UNKNOWN;
-        }
+        return CommandWord.UNKNOWN;
     }
+    
     
     /**
      * Check whether a given String is a valid command word. 
@@ -64,9 +64,11 @@ public class CommandWords
      */
     public String getCommandList(){
         String returnList = " ";
-        for(String command : validCommands.keySet()){
-        returnList += command + " ";
+        for(CommandWord command : CommandWord.values()){
+        if(!command.toString().equals("?")){
+            returnList += " " + command.toString().toLowerCase();
         }
+    }
         return returnList;
     }
 }
