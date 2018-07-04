@@ -104,7 +104,7 @@ public boolean isInBag(String itemName)
 {
 return itemsYouHeld.containsKey(itemName);
 }
-	
+    
 
 /**
 * Calculates if the player can carry a given item or not
@@ -113,7 +113,7 @@ return itemsYouHeld.containsKey(itemName);
 */
   public boolean isAbleToCarry(Item item) {
  if (item.getWeight()+getTotalWeightItems() <= maxWeight) {
-	return true;
+    return true;
  }
   return false;
  }
@@ -142,12 +142,12 @@ return itemsYouHeld.containsKey(itemName);
     }
     
 /**
-	 * Moves the player to another room
-	 * @param nextRoom The room to player should be moved to
-	 */
+     * Moves the player to another room
+     * @param nextRoom The room to player should be moved to
+     */
 public void movePlayer(Room nextRoom) {   
-
-	currentRoom = nextRoom;
-		
+    previousRoom = currentRoom;
+    currentRoom = nextRoom;
+    System.out.println(getCurrentRoom().getLongDescription());
 }
 }

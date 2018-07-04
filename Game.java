@@ -215,26 +215,25 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
+        
         Room nextRoom = player.getCurrentRoom().getExit(direction);
         
         String result = "";
         if (nextRoom == null) {
             System.out.println("There is no door!");
+            look();
         }
         else {
             player.movePlayer(nextRoom);
-              
-        }
-        System.out.println(player.getCurrentRoom().getLongDescription());
-        
+        }  
     }
     
  /**
   * Let the player return to the previous room.
   */ 
  private void goBack(Command command){
-     Room nextRoom = player.getCurrentRoom();
-     player.enterRoom(nextRoom);
+     Room prevRoom = player.getPreviousRoom();
+     player.movePlayer(prevRoom);
     }
  
  
