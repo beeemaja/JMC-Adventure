@@ -83,6 +83,6 @@ public class Item
      * Return the full description of an item.
      */
     public String itemDescriptionLong(){
-    return name + " - " + description + "Weight: " + weight;
+    return name + " - " + description + " Weight: " + weight;
     }
 }

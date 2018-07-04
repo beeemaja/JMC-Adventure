@@ -9,7 +9,10 @@ public enum CommandWord
 {
     //A value for each command word
     GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), 
-    LOOK("look"), EAT("eat"),  TAKE("take"), DROP("drop");
+    LOOK("look"), EAT("eat"),  TAKE("take"), DROP("drop"), BACK("back"),
+    GEHEN("gehen"), HILFE("hilfe"), BEENDEN("beenden"), ESSEN("essen"),
+    SCHAUEN("schauen"), NEHMEN("nehmen"), ABNEHMEN("abnehmen"), ZURÜCK("zurück");
+   
    
 
 // The command string.

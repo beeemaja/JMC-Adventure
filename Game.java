@@ -19,6 +19,7 @@ public class Game
 {
     private Parser parser;
     private Player player;
+    
 /**
      * Create the game and initialise its internal map.
      */
@@ -33,11 +34,11 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, boss, amunition, secretRoom, rest, goal;
+        Room outside, boss, ammunition, secretRoom, rest, goal;
         // create the rooms
         outside = new Room("outside the main entrance of the temple");
         boss = new Room("in a boss room. Look out! There's monster sleeping");
-        amunition = new Room("in the amunition room. Find a sword!");
+        ammunition = new Room("in the amunition room. Find a sword!");
         secretRoom = new Room("in a secretRoom. Find a password!");
         rest = new Room("in the rest room.");
         goal = new Room("in the goal room. Here's your holy grail");
@@ -45,24 +46,35 @@ public class Game
         //set the neighbouring rooms
         outside.setExit("east", rest);
         outside.setExit("north", boss);
-        outside.setExit("west", amunition);
+        outside.setExit("west", ammunition);
        
         boss.setExit("north", goal);
         boss.setExit("south", outside);
-        boss.addItem("Dragon", "is going to crash you on the way to goal!" + "\n" + 
+        boss.addItem("dragon", "is going to crash you on the way to goal!" + "\n" + 
         "Use your sword to defeat him", 200);
-        boss.getItem("Dragon").setEatable(false);
-        boss.getItem("Dragon").setPickUpAbility(false);
+        boss.getItem("dragon").setEatable(false);
+        boss.getItem("dragon").setPickUpAbility(false);
         
-        amunition.setExit("south", outside);
-        amunition.setExit("west", secretRoom);
-        amunition.addItem("Sword", "helps to defeat dragons", 25);
-        amunition.getItem("Sword").setEatable(false);
-        amunition.getItem("Sword").setPickUpAbility(true);
+        ammunition.setExit("south", outside);
+        ammunition.setExit("west", secretRoom);
+        ammunition.addItem("sword", "helps to defeat dragons", 25);
+        ammunition.getItem("sword").setEatable(false);
+        ammunition.getItem("sword").setPickUpAbility(true);
+        ammunition.addItem("body armour", "protect you from injuries", 25);
+        ammunition.getItem("body armour").setEatable(false);
+        ammunition.getItem("body armour").setPickUpAbility(true);
+        ammunition.addItem("shield", "protect you from dragon's fire", 25);
+        ammunition.getItem("shield").setEatable(false);
+        ammunition.getItem("shield").setPickUpAbility(true);
+        ammunition.addItem("helmet", "protect you from dragon's fire", 25);
+        ammunition.getItem("helmet").setEatable(false);
+        ammunition.getItem("helmet").setPickUpAbility(true);
         
-        secretRoom.setExit("east",amunition);        
-        secretRoom.addItem("password", "the key to the goal room", 25);
-        secretRoom.getItem("password").setPickUpAbility(true);
+        
+        secretRoom.setExit("east",ammunition);        
+        secretRoom.addItem("black box", "the key to the goal room in it", 25);
+        secretRoom.getItem("black box").setEatable(false);
+        secretRoom.getItem("black box").setPickUpAbility(true);
         
         goal.setExit("south", boss);
         goal.addItem("Holy grail", "You'll save your beloved one", 25);
@@ -70,13 +82,13 @@ public class Game
         goal.getItem("Holy grail").setPickUpAbility(true);
         
         rest.setExit("west", outside);
-        rest.addItem("Cookie", " boost your energy", 25);
-        rest.getItem("Cookie").setEatable(true);
-        rest.getItem("Cookie").setPickUpAbility(true);
+        rest.addItem("cookie", " boost your energy", 10);
+        rest.getItem("cookie").setEatable(true);
+        rest.getItem("cookie").setPickUpAbility(true);
         
-        rest.addItem("Drink", " drink me! ", 25);
-        rest.getItem("Drink").setEatable(true);
-        rest.getItem("Drink").setPickUpAbility(true);
+        rest.addItem("drink", " drink me! ", 10);
+        rest.getItem("drink").setEatable(true);
+        rest.getItem("drink").setPickUpAbility(true);
         
        // the location of player
        player = new Player(outside);  // start game outside
@@ -131,33 +143,44 @@ public class Game
             break;
         
         case HELP:
+        case HILFE:
             printHelp();
             break;
         
         case GO:
+        case GEHEN:
             goRoom(command);
             break;
         
         case LOOK:
+        case SCHAUEN:
             look();
             break;
         
         case EAT:
+        case ESSEN:
             eat(command);
             break;
             
         case TAKE:
+        case NEHMEN:
              take(command);
              break;
              
         case DROP:
+        case ABNEHMEN:
              drop(command);
              break;
         
         case QUIT:
+        case BEENDEN:
             wantToQuit = quit(command);
             break;
-        
+            
+        case BACK:
+        case ZURÜCK:
+            goBack(command);
+            break;
     }
     return wantToQuit;
  }
@@ -206,6 +229,15 @@ public class Game
         
     }
     
+ /**
+  * Let the player return to the previous room.
+  */ 
+ private void goBack(Command command){
+     Room nextRoom = player.getCurrentRoom();
+     player.enterRoom(nextRoom);
+    }
+ 
+ 
   /**
    * Let the player eat the item if it is eatable.
    */  
@@ -228,7 +260,7 @@ public class Game
         }
         System.out.println("You eat a magic cookie and feel much stronger!");
     }
-    
+ 
 /**
  * Take the item in the current room.
  */
@@ -319,15 +351,6 @@ System.out.println(player.getDescriptionOfItems());
         System.out.println(player.getCurrentRoom().getLongDescription());
     }
   
-//private void eat(){
-   // System.out.println("You have eaten now and you are not hungry any more.");
-   // }
-    
-//private void take(){
-  //  System.out.println("The item is taken");
-//}
 
-//private void drop(){
-//    System.out.println("The item is dropped");
 //}
 }

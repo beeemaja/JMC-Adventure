@@ -75,13 +75,11 @@ public class Room
      * Add item to the room created.
      * 
      */
-    public void addItem(String name, String description, 
-    int weight)
-    {
+    public void addItem(String name, String description, int weight){
     items.put(name, new Item(name, description, weight));
     }
     
-    /**
+   /**
      * Add item to the room.
      */
     public void addItem(Item item){
@@ -139,7 +137,7 @@ public class Room
     }
     else 
     {
-    return itemString + " \nNone.";
+    return itemString + " None.";
     }
     }
     

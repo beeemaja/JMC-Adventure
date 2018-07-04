@@ -11,6 +11,7 @@ public class Player
      private Room currentRoom;
      private HashMap<String, Item> itemsYouHeld;
      private int maxWeight;
+     private Room previousRoom;
      
 /**
      * Constructor for objects of class Player
@@ -22,6 +23,23 @@ public class Player
        maxWeight = 75;
     }
     
+ /**
+  * Enters the specified room and prints the description.
+  */
+public void enterRoom(Room nextRoom){
+    previousRoom = currentRoom;
+    currentRoom = nextRoom;
+   
+    System.out.println(previousRoom.getLongDescription());
+ }
+
+ /**
+ * Return the information about the player's previous location.
+ */
+public Room getPreviousRoom(){
+return previousRoom;
+}
+
 /**
      * Add item to your bag.
      * @param item The item to be added.
@@ -78,14 +96,14 @@ return currentRoom;
 }
 
 /**
-	 * Check if an item exits in the players inventory or not
-	 * @param itemName The item that should be looked for
-	 * @return True if the item exits, false if not
-	 */
-	public boolean isInBag(String itemName)
-	{
-		return itemsYouHeld.containsKey(itemName);
-	}
+* Check if an item exits in the players inventory or not
+* @param itemName The item that should be looked for
+* @return True if the item exits, false if not
+*/
+public boolean isInBag(String itemName)
+{
+return itemsYouHeld.containsKey(itemName);
+}
 	
 
 /**

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.ArrayList;
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -16,6 +17,7 @@ public class CommandWords
     //private static final String[] validCommands = {
     //    "go", "quit", "help", "look", "eat"
     private HashMap<String, CommandWord> validCommands;
+    
  
 
     /**
