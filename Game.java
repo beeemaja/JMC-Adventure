@@ -223,7 +223,7 @@ public class Game
         }
         else {
             player.movePlayer(nextRoom);
-            printLocationInfo();    
+              
         }
         System.out.println(player.getCurrentRoom().getLongDescription());
         
@@ -319,6 +319,7 @@ if (!player.isInBag(item)) {
     private void printLocationInfo()
     {
         System.out.println(player.getCurrentRoom().getLongDescription());
+        
     }
     
 /**

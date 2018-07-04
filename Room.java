@@ -110,12 +110,14 @@ public class Room
     }
     
     /**
+     * Get the information about the current room: which items are there and
+     * which exits exist. 
      * @return The long description of the room.
      */
     public String getLongDescription(){
-     String longDescrip;
+     String longDescrip = " ";
      
-     longDescrip = "You are " + description + ".";
+     longDescrip += "You are " + description + ".";
     
      longDescrip += getItemString();
      longDescrip += "\n" + getExitString();
