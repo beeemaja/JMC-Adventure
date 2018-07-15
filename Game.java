@@ -181,6 +181,9 @@ public class Game
         case ZURÜCK:
             goBack(command);
             break;
+            
+        case INVENTORY:
+        showInventory();
     }
     return wantToQuit;
  }
@@ -287,7 +290,7 @@ if (!player.isAbleToCarry(currentRoom.getItem(item)))
     System.out.println("This item is to heavey for you to pick up!");
             return;
         }
- player.addItemtoBag(itemToBePicked);
+ player.addItemtoInventory(itemToBePicked);
  
  System.out.println("You successfully took " + item);
 }
@@ -312,6 +315,13 @@ if (!player.isInBag(item)) {
         System.out.println("You successfully dropped " + item);
     }
     
+/**
+* Displays the players inventory
+*/
+private void showInventory() {
+	System.out.println(player.getDescriptionOfItems());
+	}
+	
 /**
      * Print the current location information.
      */
