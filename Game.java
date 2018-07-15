@@ -287,7 +287,7 @@ if (!currentRoom.isItemCouldPicked(itemToBePicked)) {
         }
 if (!player.isAbleToCarry(currentRoom.getItem(item)))
         {
-    System.out.println("This item is to heavey for you to pick up!");
+    System.out.println("This item is too heavy for you to pick up!");
             return;
         }
  player.addItemtoInventory(itemToBePicked);
