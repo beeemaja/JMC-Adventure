@@ -182,7 +182,7 @@ public class Game
             goBack(command);
             break;
             
-        case INVENTORY:
+        case ITEMS:
         showInventory();
     }
     return wantToQuit;

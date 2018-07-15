@@ -16,21 +16,21 @@ public class Player
      private Room safeRoom=null;
      
 /**
-     * Constructor for objects of class Player
-     */
+* Constructor for objects of class Player
+*/
     public Player(Room currentRoom)
     {
        this.currentRoom = currentRoom;
        itemsYouHeld = new HashMap<String, Item>();
-       
-       strength=30;
+       //strength=30;
     }
+    
 /** 
 * Set the Room for the beamer
 * @param safeRoom The room which the beamer should return to
  */
 public void setSafeRoom(Room safeRoom) {
-	this.safeRoom = safeRoom;
+    this.safeRoom = safeRoom;
 } 
 
 /**
@@ -38,7 +38,7 @@ public void setSafeRoom(Room safeRoom) {
 * @return The room which the beamer should return to
 */
 public Room getSafeRoom() {
-	return safeRoom;
+    return safeRoom;
 }
 
  /**
@@ -54,30 +54,32 @@ public void enterRoom(Room nextRoom){
  * Return the information about the player's previous location.
  */
 public Room getPreviousRoom(){
-return previousRoom;
+    return previousRoom;
 }
 
 /**
-     * Add item to your inventory.
-     * @param item The item to be added.
-     */
-    public void addItemtoInventory(Item item){
+* Add item to your inventory.
+* @param item The item to be added.
+*/
+public void addItemtoInventory(Item item){
      itemsYouHeld.put (item.getName(), item);
-    }
+}
    
 /**
-     * Return the items in your bag.
-     */
-    public Item getItem(String item){
+* Return the items in your bag.
+*/
+public Item getItem(String item){
      return itemsYouHeld.get(item);
-    }
+}
+
  /**
-	 * Removes and item from the players inventory
-	 * @param item The item to be removed
-	 */
-	public void removeItemFromInventory(String item) {
-		itemsYouHeld.remove(item);
-	}
+* Removes and item from the players inventory
+* @param item The item to be removed
+*/
+public void removeItemFromInventory(String item) {
+    itemsYouHeld.remove(item);
+}
+
 /**
 * Return the string about the items that are
 * stored in your inventory.
@@ -91,24 +93,24 @@ return previousRoom;
     }
     itemsString += "Carrying " + getTotalWeightInventory()
     + "of maximum " + 
-    maxWeight;
+    MAXWEIGHT;
     return itemsString;
     }
     else
     return itemsString += "Is empty";
     }
   
-    /**
-     * Returns the weight of the items carried.
-     */
+/**
+* Returns the weight of the items carried.
+*/
     
-    public int getTotalWeightInventory(){
+public int getTotalWeightInventory(){
     int totalWeight = 0;
-    if (!itemsYouHeld.isEmpty()){
+ if (!itemsYouHeld.isEmpty()){
     Set<String> itemNames = itemsYouHeld.keySet();
-     for(String itemName : itemNames) {
-        totalWeight += itemsYouHeld.get(itemName).getWeight();
-     }
+  for(String itemName : itemNames) {
+  totalWeight += itemsYouHeld.get(itemName).getWeight();
+  }
     }
     return totalWeight;
 }
@@ -116,10 +118,10 @@ return previousRoom;
 * Increases the strength of the player
 * @param increment The increment of the players strength
  */
-	public void increaseStrength(double increment)
-	{
-		this.strength += increment;
-	}
+    public void increaseStrength(double increment)
+    {
+        this.strength += increment;
+    }
 /**
  * Return the information about the player's location.
  */

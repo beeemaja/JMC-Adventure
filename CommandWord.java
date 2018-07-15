@@ -12,7 +12,7 @@ public enum CommandWord
     LOOK("look"), EAT("eat"),  TAKE("take"), DROP("drop"), BACK("back"),
     GEHEN("gehen"), HILFE("hilfe"), BEENDEN("beenden"), ESSEN("essen"),
     SCHAUEN("schauen"), NEHMEN("nehmen"), ABNEHMEN("abnehmen"),
-    ZURÜCK("zurück"), INVENTORY("inventory");
+    ZURÜCK("zurück"), ITEMS("items");
    
    
 
