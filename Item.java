@@ -11,7 +11,7 @@ public class Item
     private String description;
     private String name;
     private int weight;
-    private boolean canBePickedUp;
+    private boolean canBePickedUp = true;
     private boolean eatable;
 
     /**
@@ -22,8 +22,6 @@ public class Item
       this.name = name;
       this.description = description;
       this.weight = weight;
-      canBePickedUp = true; 
-     
     }
     
     /**

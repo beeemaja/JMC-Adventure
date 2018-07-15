@@ -277,7 +277,7 @@ if (itemToBePicked==null) {
     System.out.println("This item doesn't exist in this room");
             return;
         }
-        //Check if items is allowd to be looted
+        //Check if items is allowed to be taken
 if (!currentRoom.isItemCouldPicked(itemToBePicked)) {
     System.out.println("You are not allowed to take this item");
             return;
