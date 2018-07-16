@@ -79,6 +79,12 @@ public Item getItem(String item){
 public void removeItemFromInventory(String item) {
     itemsYouHeld.remove(item);
 }
+/**
+ * Removes all the items from the inventory
+ */
+public void dropAllItems(){
+   itemsYouHeld.clear();
+}
 
 /**
 * Return the string about the items that are

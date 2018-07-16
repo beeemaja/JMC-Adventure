@@ -303,7 +303,15 @@ if(!command.hasSecondWord()) {
     System.out.println("Drop what?");
             return;
         } 
-        String item = command.getSecondWord();
+
+
+String item = command.getSecondWord();
+ if(item.equals("all")){
+    player.dropAllItems();
+    System.out.println("You dropped all the items");
+    return;
+    }
+        
         Room currentRoom = player.getCurrentRoom();
                 //Check if the item exists
 if (!player.isInBag(item)) {
@@ -311,7 +319,7 @@ if (!player.isInBag(item)) {
             return;
         }
         currentRoom.addItem(player.getItem(item));
-        
+     
         System.out.println("You successfully dropped " + item);
     }
     
