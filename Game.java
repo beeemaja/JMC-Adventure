@@ -302,27 +302,27 @@ private void drop(Command command){
 String item = command.getSecondWord();
 Room currentRoom = player.getCurrentRoom();
 	//check for item to drop
-if(!command.hasSecondWord()) {
+	if(!command.hasSecondWord()) {
     	System.out.println("Drop what?");
     	return;
-}
+	}
 	//Check if the item exists
-if (!player.isInBag(item)) {
+	if (!player.isInBag(item)) {
     	System.out.println("You dont have this item!");
     	return;
-}
-//check for dropping all
+	}
+	
+	//check for dropping all
 if(item.equals("all")){
     player.dropAllItems();
     System.out.println("Successfully dropped every item");
     return;
 }
 
-player.removeItemFromInventory(item);
-System.out.println("You successfully dropped " + item);
+	currentRoom.removeItem(item);
+	System.out.println("You successfully dropped " + item);
 }
-
-    
+ 
 /**
 * Displays the players inventory
 */
