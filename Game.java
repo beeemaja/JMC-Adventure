@@ -299,29 +299,22 @@ if (!player.isAbleToCarry(currentRoom.getItem(item)))
  * Drop the items if the bag is too heavy.
  */     
 private void drop(Command command){
-if(!command.hasSecondWord()) {
-    System.out.println("Drop what?");
-            return;
-        } 
-
-
 String item = command.getSecondWord();
- if(item.equals("all")){
-    player.dropAllItems();
-    System.out.println("You dropped all the items");
-    return;
-    }
-        
-        Room currentRoom = player.getCurrentRoom();
-                //Check if the item exists
+Room currentRoom = player.getCurrentRoom();
+	//check for item to drop
+if(!command.hasSecondWord()) {
+    	System.out.println("Drop what?");
+    	return;
+}
+	//Check if the item exists
 if (!player.isInBag(item)) {
-    System.out.println("You dont have this item!");
-            return;
-        }
-        currentRoom.addItem(player.getItem(item));
-     
-        System.out.println("You successfully dropped " + item);
-    }
+    	System.out.println("You dont have this item!");
+    	return;
+}
+currentRoom.removeItem(item);
+System.out.println("You successfully dropped " + item);
+}
+
     
 /**
 * Displays the players inventory
