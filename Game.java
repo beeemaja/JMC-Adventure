@@ -311,7 +311,14 @@ if (!player.isInBag(item)) {
     	System.out.println("You dont have this item!");
     	return;
 }
-currentRoom.removeItem(item);
+//check for dropping all
+if(item.equals("all")){
+    player.dropAllItems();
+    System.out.println("Successfully dropped every item");
+    return;
+}
+
+player.removeItemFromInventory(item);
 System.out.println("You successfully dropped " + item);
 }
 
