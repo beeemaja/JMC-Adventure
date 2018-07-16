@@ -1,5 +1,6 @@
-Project: zuul-bad
-Authors: Michael Kölling and David J. Barnes
+﻿Project: JMC Adventure
+Authors: Mayya Bareeva, Justin Voitel, Cong Nguyen-Dinh
+
 
 This project is part of the material for the book
 
@@ -10,18 +11,12 @@ This project is part of the material for the book
 
 This project is a simple framework for an adventure game. In this version,
 it has a few rooms and the ability for a player to walk between these rooms.
-That's all.
+
 
 To start this application, create an instance of class "Game" and call its
 "play" method.
 
-This version of the game contains some very bad class design. It should NOT
-be used as a basis for extending the project without fixing these design
-problems. It serves as an example to discuss good and bad design (chapter 8
-of the book).
+The player has many options in the game: one can walk around rooms, take and drop items, 
+eat some eatable items.
 
-Chapter 8 of the book contains a detailed description of the problems in this
-project, and how to fix them.
-
-The project 'zuul-better' contains a version of this project with better
-designed class structure. It includes the fixes discussed in the book.
+The goal of the player is to defeat the dragon in the Boss room and find the Holy Grail.
